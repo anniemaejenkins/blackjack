@@ -1,3 +1,5 @@
+// (function() {
+//   'use strict';
 /*
    Implement a Blackjack hand value calculator.
 
@@ -8,24 +10,33 @@
    you'll need to parse through that first before you can start to
    write your logic.
 */
-var K = 10;
-var Q = 10;
-var J = 10;
-var A = 11;
 
 function handValue(hand) {
   var total = 0;
-  for (var i = 0; i < hand.length; i++) {
-    total = total + hand[i];
+  var aces = 0;
+  for(var i = 0; i < hand.length; i++){
+    if (hand[i] === "K" || hand[i] === "Q" || hand[i] === "J"){
+      // total += 10 is shorthand for total = total + 10
+      total += 10;
+    } else if (hand[i] === "A") {
+      aces +=1;
+    }
+    else {
+      total += Number(hand[i]);
+    }
   }
-if (total > 21) {
-  A = 1;
-}
 
+  for(var i = 0; i < aces; i++){
+    if (total + 11 > 21){
+      total += 1;
+    } else {
+      total += 11;
+    }
+  }
   return total;
 }
 
-handValue(["2", "2", "8"]);
+// handValue(["2", "2", "8"]);
 /* -----  Hints ------
 
 1..10   ==> Worth face value (1 = 1, 4 = 4, etc)
@@ -33,3 +44,4 @@ K, Q, J ==> Worth 10
 A       ==> Worth 1 or 11
 
 */
+// })();
